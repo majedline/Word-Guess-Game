@@ -4,19 +4,22 @@ var petList = ["cat", "dog", "mouse", "parrot", "rabbit", "lizard"];
 var currentGame = {
     petToGuess : "",
     numberOfGuessesMade: 0, 
-    numberOfGuessesRemaining: 0,
+    numberOfGuessesRemaining: 10,
     charactersToGuess: [],
-    charactersGuessed: [],
 };
 
 function setGame(){
+
+    currentGame.numberOfGuessesMade = 0;
+    currentGame.numberOfGuessesRemaining = 10
+
     // get the random workd    
     currentGame.petToGuess = petList[Math.floor(Math.random() * petList.length)];
     console.log(currentGame.petToGuess);
 
     // split the word
     currentGame.charactersToGuess = currentGame.petToGuess.split("");
-    console.log(currentGame.charactersGuessed);
+    console.log(currentGame.charactersToGuess);
    
     //for every spot in chracters to guess array, place a div
     var mainDiv = document.createElement("div");
@@ -32,9 +35,14 @@ function setGame(){
         mainDiv.append(innerDiv);
     }
     console.log(mainDiv);
-    document.getElementById("game-area").appendChild(mainDiv);
+    document.getElementById("game-area").append(mainDiv);
 
     //document.getElementById("demo").innerHTML = "The Unicode CHARACTER code is: " + char;
+}
+
+function reset(){
+    document.getElementById("game-area").innerHTML="";
+    setGame();
 }
 
 setGame();
