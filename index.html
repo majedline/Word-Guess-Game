@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <title>Guess The pet</title>
 
-  <script src="assets/javascript/game.js"></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -38,7 +37,7 @@
 
 
   <div class="header header-style">
-    <h1>Guess My Game</h1>
+    <h1>HangMan</h1>
   </div>
 
 
@@ -48,11 +47,15 @@
       <div class="col-md-3 menu">
         <ul>
 
-          <div class="menu-item"><button type="button" id="btn-new" class="btn btn-primary">New Game</button></div>
-          <div class="menu-item"><button type="button" if="btn-hint" class="btn btn-primary">Hint</button></div>
+          <div class="menu-item">
+            <button type="button" id="btn-new" class="btn btn-primary">New Game</button>
+          </div>
+          <div class="menu-item">
+            <button type="button" if="btn-hint" class="btn btn-primary">Hint</button>
+          </div>
           <div class="menu-item" id="hint">
             <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
+              <img class="card-img-top" alt="...">
               <div class="card-body">
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                   card's content.</p>
@@ -66,17 +69,17 @@
 
       <div class="col-md-6 inner-header-style">
         <h2>Guess the Pet</h2>
-        <div>_ _ _ _ _ _ _ </div>
+        <div id="game-area"></div>
       </div>
 
       <div class="col-md-3 right">
         <div class="aside">
-          <h3>Number of guesses made</h3>
-          <p>0</p>
-          <h3>Number of guess remaining</h3>
-          <p>0</p>
-          <h3>Chracters guessed</h3>
-          <p>xyz</p>
+          <h6>Number of guesses made</h6>
+          <p id="game-number-of-guesses-made">0</p>
+          <h6>Number of guesses remaining</h6>
+          <p id="game-number-of-guesses-remaining">0</p>
+          <h6>Characters guessed</h6>
+          <p id="game-characters-selected">xyz</p>
         </div>
       </div>
     </div>
@@ -84,7 +87,7 @@
 
     <div class="row">
       <div class="col-md-12 ">
-        <img src="./assets/images/All-pets.png" class="rounded img-style" alt="...">
+        <img id="game-image" src="./assets/images/All-pets.png" class="rounded img-style" alt="...">
       </div>
     </div>
   </div>
@@ -93,6 +96,8 @@
   <div class="footer footer-style">
     <p>copyright &#169; awesomeness</p>
   </div>
+
+  <script src="assets/javascript/game.js"></script>
 
 
 
