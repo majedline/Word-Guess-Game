@@ -1,5 +1,5 @@
 .header-style {
-    background-color: #99aaff;
+    background-color: #888888;
     text-align: center;
     padding: 10px;
     width:68%;
@@ -22,14 +22,16 @@
 }
 
 .menu-item{
-    background-color: aliceblue;
-    border-style: solid;
-    border-width: 1px;
     padding: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
     text-align: center;
+}
+
+.btn{
+    width: 100%;
+}
+
+#hint{
+    visibility: hidden;
 }
 
 .img-style{
