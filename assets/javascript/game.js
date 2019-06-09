@@ -1,6 +1,6 @@
 
 var gameLimit = 10;
-var petList = ["cat", "dog", "mouse", "parrot", "rabbit", "lizard"];
+var petList = ["cat", "dog", "mouse", "parrot", "bunny", "lizard"];
 
 // current game 
 var currentGame = {
@@ -25,10 +25,11 @@ function setGame() {
     // split the word, and set the game value
     currentGame.charactersToGuess = currentGame.petToGuess.split("");
     currentGame.correctCharactersGuessedByUser.length = currentGame.charactersToGuess.length;
+    currentGame.wrongCharactersGuessedByUser = [];
 
-    console.log(currentGame.charactersToGuess);
-    console.log(currentGame.correctCharactersGuessedByUser);
-    console.log(currentGame.wrongCharactersGuessedByUser);
+    // console.log(currentGame.charactersToGuess);
+    // console.log(currentGame.correctCharactersGuessedByUser);
+    // console.log(currentGame.wrongCharactersGuessedByUser);
 
 
     //for every spot in chracters to guess array, place a div
@@ -54,6 +55,10 @@ function setGame() {
 
 function reset() {
     document.getElementById("game-area").innerHTML = "";
+    document.getElementById("hint").className = "menu-item hint-off";
+    document.getElementById("hint-image").src = "";
+    document.getElementById("game-status").innerHTML = "";
+
     setGame();
 }
 
@@ -71,22 +76,35 @@ function keyPressed() {
                 currentGame.wrongCharactersGuessedByUser.push(pressedChar);
             }
 
-            console.log("currentGame.charactersToGuess: "+ currentGame.charactersToGuess);
-            console.log("currentGame.correctCharactersGuessedByUser: " +currentGame.correctCharactersGuessedByUser);
-            console.log("currentGame.wrongCharactersGuessedByUser: "+ currentGame.wrongCharactersGuessedByUser);
+            console.log("currentGame.charactersToGuess: " + currentGame.charactersToGuess);
+            console.log("currentGame.correctCharactersGuessedByUser: " + currentGame.correctCharactersGuessedByUser);
+            console.log("currentGame.wrongCharactersGuessedByUser: " + currentGame.wrongCharactersGuessedByUser);
 
         }
+        if (currentGame.numberOfGuessesRemaining != 0) {
+            // increment number of guesses made
+            currentGame.numberOfGuessesMade++;
+            document.getElementById("game-number-of-guesses-made").innerHTML = currentGame.numberOfGuessesMade;
 
-        // increment number of guesses made
-        currentGame.numberOfGuessesMade++;
-        document.getElementById("game-number-of-guesses-made").innerHTML = currentGame.numberOfGuessesMade;
+            //decrment number of guesses remaining
 
-        //decrment number of guesses remaining
-        currentGame.numberOfGuessesRemaining--;
-        document.getElementById("game-number-of-guesses-remaining").innerHTML = currentGame.numberOfGuessesRemaining;
+            currentGame.numberOfGuessesRemaining--;
+            document.getElementById("game-number-of-guesses-remaining").innerHTML = currentGame.numberOfGuessesRemaining;
+        }
+
+        isGameOver();
     }
 };
 
+function isGameOver() {
+    if (currentGame.numberOfGuessesRemaining <= 0) {
+        document.getElementById("game-status").innerHTML = "Sorry, you lose - Game Over";
+    }
+}
+
+// function isWinner(){
+
+// }
 
 // if the guess charcter is found, then put it in the correct bucket. If not, then put in the worng bucket
 function checkCorrectGuess(guessedCharacter) {
@@ -106,9 +124,10 @@ function checkCorrectGuess(guessedCharacter) {
     return foundCorrectGuess;
 }
 
-// function didUserWin(){
-//     return 
-// }
+function getHint() {
+    document.getElementById("hint").className = "menu-item hint-on";
+    document.getElementById("hint-image").src = "./assets/images/" + currentGame.petToGuess + ".png";
+}
 
 
 setGame();

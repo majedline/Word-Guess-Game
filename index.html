@@ -24,7 +24,8 @@
 
 <body>
   <div class="header header-style">
-    <h1>HangMan</h1>
+    <h1>HangPet</h1>
+    <h5>Type the letters of the pet below</h5>
   </div>
 
 
@@ -32,30 +33,20 @@
 
     <div class="row">
       <div class="col-md-3 menu">
-        <ul>
 
           <div class="menu-item">
             <button type="button" id="btn-new" class="btn btn-primary" onclick="reset()">New Game</button>
           </div>
           <div class="menu-item">
-            <button type="button" if="btn-hint" class="btn btn-primary">Hint</button>
+            <button type="button" if="btn-hint" class="btn btn-primary" onclick="getHint()">Hint</button>
           </div>
-          <div class="menu-item" id="hint">
-            <div class="card" style="width: 18rem;">
-              <img class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                  card's content.</p>
-              </div>
+          <div class="menu-item hint-off" id="hint">
+              <img  alt="Placeholder" class="img-thumbnail thumbnail-margin" id="hint-image">
             </div>
-
-          </div>
-
-        </ul>
       </div>
 
       <div class="col-md-6 inner-header-style">
-        <h2>Guess the Pet</h2>
+        <h2 id="game-status"></h2>
         <div id="game-area"></div>
       </div>
 
