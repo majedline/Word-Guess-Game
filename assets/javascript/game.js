@@ -10,13 +10,20 @@ var currentGame = {
     charactersToGuess: [],
     correctCharactersGuessedByUser: [],
     wrongCharactersGuessedByUser: [],
+    gameFinished: false
 };
 
 // Set the game 
 function setGame() {
 
+
     currentGame.numberOfGuessesMade = 0;
     currentGame.numberOfGuessesRemaining = gameLimit;
+    currentGame.charactersToGuess = [];
+    currentGame.correctCharactersGuessedByUser = [];
+    currentGame.wrongCharactersGuessedByUser = [];
+    currentGame.gameFinished = false;
+
 
     // get the random workd    
     currentGame.petToGuess = petList[Math.floor(Math.random() * petList.length)];
@@ -54,57 +61,77 @@ function setGame() {
 }
 
 function reset() {
-    document.getElementById("game-area").innerHTML = "";
-    document.getElementById("hint").className = "menu-item hint-off";
-    document.getElementById("hint-image").src = "";
-    document.getElementById("game-status").innerHTML = "";
 
-    setGame();
+    location.reload();
 }
 
 // When a key is pressed, check if it is a correct guess
 function keyPressed() {
     document.onkeyup = function (event) {
 
-        var pressedChar = event.key;
-        var allowedLetters = /^[a-zA-Z]+$/;// need to check this because it is allowing tabs
+        if (!currentGame.gameFinished) {
+            var pressedChar = event.key;
+            var allowedLetters = /^[a-zA-Z]+$/;// need to check this because it is allowing tabs
 
-        if (pressedChar.match(allowedLetters)) {
-            var isGuessCorrect = checkCorrectGuess(pressedChar);
+            if (pressedChar.match(allowedLetters)) {
+                var isGuessCorrect = checkCorrectGuess(pressedChar);
 
-            if (!isGuessCorrect) {
-                currentGame.wrongCharactersGuessedByUser.push(pressedChar);
+                if (!isGuessCorrect) {
+                    currentGame.wrongCharactersGuessedByUser.push(pressedChar);
+                    document.getElementById("game-characters-selected").innerHTML = currentGame.wrongCharactersGuessedByUser;
+
+                }
+
+                incrementGame(isGuessCorrect);
+                // console.log("currentGame.charactersToGuess: " + currentGame.charactersToGuess);
+                // console.log("currentGame.correctCharactersGuessedByUser: " + currentGame.correctCharactersGuessedByUser);
+                // console.log("currentGame.wrongCharactersGuessedByUser: " + currentGame.wrongCharactersGuessedByUser);
+
             }
 
-            console.log("currentGame.charactersToGuess: " + currentGame.charactersToGuess);
-            console.log("currentGame.correctCharactersGuessedByUser: " + currentGame.correctCharactersGuessedByUser);
-            console.log("currentGame.wrongCharactersGuessedByUser: " + currentGame.wrongCharactersGuessedByUser);
 
+            isWinner();
+            isGameOver();
         }
-        if (currentGame.numberOfGuessesRemaining != 0) {
-            // increment number of guesses made
-            currentGame.numberOfGuessesMade++;
-            document.getElementById("game-number-of-guesses-made").innerHTML = currentGame.numberOfGuessesMade;
+    }
+};
 
+function incrementGame(isGoodGuess) {
+    if (currentGame.numberOfGuessesRemaining != 0) {
+        // increment number of guesses made
+        currentGame.numberOfGuessesMade++;
+        document.getElementById("game-number-of-guesses-made").innerHTML = currentGame.numberOfGuessesMade;
+
+        if (!isGoodGuess) {
             //decrment number of guesses remaining
-
             currentGame.numberOfGuessesRemaining--;
             document.getElementById("game-number-of-guesses-remaining").innerHTML = currentGame.numberOfGuessesRemaining;
         }
-
-        isGameOver();
     }
-};
+}
 
 function isGameOver() {
     if (currentGame.numberOfGuessesRemaining <= 0) {
         document.getElementById("game-status").innerHTML = "Sorry, you lose - Game Over";
+        currentGame.gameFinished = true;
     }
 }
 
-// function isWinner(){
+function isWinner() {
+    var isWordFound = true;
+    for (var i = 0; i < currentGame.correctCharactersGuessedByUser.length; i++) {
+        if (currentGame.correctCharactersGuessedByUser[i] == null) {
+            isWordFound = false;
+        }
+    }
 
-// }
+    if (isWordFound) {
+        document.getElementById("game-status").innerHTML = "You Win!!";
+        currentGame.gameFinished = true;
+    }
+
+
+}
 
 // if the guess charcter is found, then put it in the correct bucket. If not, then put in the worng bucket
 function checkCorrectGuess(guessedCharacter) {

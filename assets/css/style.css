@@ -1,18 +1,20 @@
 body{
     background-color: lightgray;
+    background-image: url('../images/All-pets.png');
+
 }
 
 .header-style {
-    background-color: #f7d5d5;
     text-align: center;
-    padding: 10px;
-    
+    padding: 10px;    
     margin:auto;
     margin-bottom: 2px;
+
 }
 
 .container-style{
     width: 100%;
+    background-color: #eeeeee;
 
 }
 
@@ -42,20 +44,3 @@ body{
     font-size: 40px;
 }
 
-.img-style{
-    width: 100%;
-    height: auto;
-    border-style: solid;
-    border-width: 10px;
-    
-}
-
-.footer-style{
-    background-color: #99aaff;
-    text-align: center;
-    padding: 10px;
-    width:68%;
-    margin:auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
